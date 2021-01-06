@@ -7,7 +7,8 @@ import (
 )
 
 var (
-	DetailTypeECSTaskStateChange = "ECS Task State Change"
+	DetailTypeECSTaskStateChange              = "ECS Task State Change"
+	DetailTypeECSContainerInstanceStateChange = "ECS Container Instance State Change"
 )
 
 func ParseEventDetail(ev events.CloudWatchEvent) (interface{}, error) {
@@ -15,6 +16,8 @@ func ParseEventDetail(ev events.CloudWatchEvent) (interface{}, error) {
 	switch ev.DetailType {
 	case DetailTypeECSTaskStateChange:
 		payload = &ECSTaskStateChangeEvent{}
+	case DetailTypeECSContainerInstanceStateChange:
+		payload = &ECSContainerInstanceStateChangeEvent{}
 	}
 	if err := json.Unmarshal(ev.Detail, &payload); err != nil {
 		return nil, err

@@ -62,3 +62,35 @@ type ECSTaskStateChangeEvent struct {
 	StoppingAt        time.Time        `json:"stoppingAt"`
 	StoppedAt         time.Time        `json:"stoppedAt"`
 }
+
+type ECSContainerInstanceStateChangeEvent struct {
+	AgentConnected       bool                            `json:"agentConnected"`
+	Attributes           []ECSContainerInstanceAttribute `json:"attributes"`
+	ClusterArn           string                          `json:"clusterArn"`
+	ContainerInstanceArn string                          `json:"containerInstanceArn"`
+	EC2InstanceID        string                          `json:"ec2InstanceId"`
+	Status               string                          `json:"status"`
+	RegisteredResources  []ECSResource                   `json:"registeredResources"`
+	RemainingResources   []ECSResource                   `json:"remainingResources"`
+	Version              int                             `json:"version"`
+	VersionInfo          ECSContainerAgentInfo           `json:"versionInfo"`
+	UpdatedAt            time.Time                       `json:"updatedAt"`
+}
+
+type ECSContainerAgentInfo struct {
+	AgentHash     string `json:"agentHash"`
+	AgentVersion  string `json:"agentVersion"`
+	DockerVersion string `json:"dockerVersion"`
+}
+
+type ECSContainerInstanceAttribute struct {
+	Name string `json:"name"`
+}
+
+type ECSResource struct {
+	Name            string   `json:"name"`
+	Type            string   `json:"type"`
+	IntegerValue    int      `json:"integerValue"`
+	IntegerSetValue []int    `json:"integerSetValue"`
+	StringSetValue  []string `json:"stringSetValue"`
+}

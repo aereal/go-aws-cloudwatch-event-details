@@ -18,7 +18,8 @@ func TestParseEventDetail(t *testing.T) {
 		want         interface{}
 		wantErr      bool
 	}{
-		{"ECS/ok", "testdata/ecs.ok.json", ecsTaskStateChangeOK, false},
+		{"ECS/task state change/ok", "testdata/ecs.ok.json", ecsTaskStateChangeOK, false},
+		{"ECS/container instance/ok", "testdata/ecs.container-instance.ok.json", ecsContainerInstanceStateChangeOK, false},
 	}
 	cwd, err := os.Getwd()
 	if err != nil {
@@ -122,5 +123,47 @@ var (
 		StartedAt:         mustParseTime("2020-01-23T17:57:58.103Z"),
 		CreatedAt:         mustParseTime("2020-01-23T17:57:34.402Z"),
 		UpdatedAt:         mustParseTime("2020-01-23T17:57:58.103Z"),
+	}
+	ecsContainerInstanceStateChangeOK = &ECSContainerInstanceStateChangeEvent{
+		AgentConnected: true,
+		Attributes: []ECSContainerInstanceAttribute{
+			{Name: "com.amazonaws.ecs.capability.logging-driver.syslog"},
+			{Name: "com.amazonaws.ecs.capability.task-iam-role-network-host"},
+			{Name: "com.amazonaws.ecs.capability.logging-driver.awslogs"},
+			{Name: "com.amazonaws.ecs.capability.logging-driver.json-file"},
+			{Name: "com.amazonaws.ecs.capability.docker-remote-api.1.17"},
+			{Name: "com.amazonaws.ecs.capability.privileged-container"},
+			{Name: "com.amazonaws.ecs.capability.docker-remote-api.1.18"},
+			{Name: "com.amazonaws.ecs.capability.docker-remote-api.1.19"},
+			{Name: "com.amazonaws.ecs.capability.ecr-auth"},
+			{Name: "com.amazonaws.ecs.capability.docker-remote-api.1.20"},
+			{Name: "com.amazonaws.ecs.capability.docker-remote-api.1.21"},
+			{Name: "com.amazonaws.ecs.capability.docker-remote-api.1.22"},
+			{Name: "com.amazonaws.ecs.capability.docker-remote-api.1.23"},
+			{Name: "com.amazonaws.ecs.capability.task-iam-role"},
+		},
+		ClusterArn:           "arn:aws:ecs:us-east-1:111122223333:cluster/default",
+		ContainerInstanceArn: "arn:aws:ecs:us-east-1:111122223333:container-instance/b54a2a04-046f-4331-9d74-3f6d7f6ca315",
+		EC2InstanceID:        "i-f3a8506b",
+		RegisteredResources: []ECSResource{
+			{Name: "CPU", Type: "INTEGER", IntegerValue: 2048},
+			{Name: "MEMORY", Type: "INTEGER", IntegerValue: 3767},
+			{Name: "PORTS", Type: "STRINGSET", StringSetValue: []string{"22", "2376", "2375", "51678", "51679"}},
+			{Name: "PORTS_UDP", Type: "STRINGSET", StringSetValue: []string{}},
+		},
+		RemainingResources: []ECSResource{
+			{Name: "CPU", Type: "INTEGER", IntegerValue: 1988},
+			{Name: "MEMORY", Type: "INTEGER", IntegerValue: 767},
+			{Name: "PORTS", Type: "STRINGSET", StringSetValue: []string{"22", "2376", "2375", "51678", "51679"}},
+			{Name: "PORTS_UDP", Type: "STRINGSET", StringSetValue: []string{}},
+		},
+		Status:  "ACTIVE",
+		Version: 14801,
+		VersionInfo: ECSContainerAgentInfo{
+			AgentHash:     "aebcbca",
+			AgentVersion:  "1.13.0",
+			DockerVersion: "DockerVersion: 1.11.2",
+		},
+		UpdatedAt: mustParseTime("2016-12-06T16:41:06.991Z"),
 	}
 )
