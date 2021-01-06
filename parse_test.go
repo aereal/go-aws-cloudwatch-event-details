@@ -20,6 +20,10 @@ func TestParseEventDetail(t *testing.T) {
 	}{
 		{"ECS/task state change/ok", "testdata/ecs.ok.json", ecsTaskStateChangeOK, false},
 		{"ECS/container instance/ok", "testdata/ecs.container-instance.ok.json", ecsContainerInstanceStateChangeOK, false},
+		{"ECS/deployment/in progress", "testdata/ecs.deployment.in-progress.json", ecsDeploymentInProgress, false},
+		{"ECS/deployment/rollback", "testdata/ecs.deployment.rollback.json", ecsDeploymentRollback, false},
+		{"ECS/deployment/completed", "testdata/ecs.deployment.completed.json", ecsDeploymentCompleted, false},
+		{"ECS/deployment/failed", "testdata/ecs.deployment.failed.json", ecsDeploymentFailed, false},
 	}
 	cwd, err := os.Getwd()
 	if err != nil {
@@ -165,5 +169,33 @@ var (
 			DockerVersion: "DockerVersion: 1.11.2",
 		},
 		UpdatedAt: mustParseTime("2016-12-06T16:41:06.991Z"),
+	}
+	ecsDeploymentInProgress = &ECSDeploymentStateChangeEvent{
+		EventType:    "INFO",
+		EventName:    "SERVICE_DEPLOYMENT_IN_PROGRESS",
+		DeploymentID: "ecs-svc/123",
+		UpdatedAt:    mustParseTime("2020-05-23T11:11:11Z"),
+		Reason:       "ECS deployment deploymentId in progress.",
+	}
+	ecsDeploymentRollback = &ECSDeploymentStateChangeEvent{
+		EventType:    "INFO",
+		EventName:    "SERVICE_DEPLOYMENT_IN_PROGRESS",
+		DeploymentID: "ecs-svc/123",
+		UpdatedAt:    mustParseTime("2020-05-23T11:11:11Z"),
+		Reason:       "ECS deployment circuit breaker: rolling back to deploymentId deploymentID.",
+	}
+	ecsDeploymentCompleted = &ECSDeploymentStateChangeEvent{
+		EventType:    "INFO",
+		EventName:    "SERVICE_DEPLOYMENT_COMPLETED",
+		DeploymentID: "ecs-svc/123",
+		UpdatedAt:    mustParseTime("2020-05-23T11:11:11Z"),
+		Reason:       "ECS deployment deploymentID completed.",
+	}
+	ecsDeploymentFailed = &ECSDeploymentStateChangeEvent{
+		EventType:    "ERROR",
+		EventName:    "SERVICE_DEPLOYMENT_FAILED",
+		DeploymentID: "ecs-svc/123",
+		UpdatedAt:    mustParseTime("2020-05-23T11:11:11Z"),
+		Reason:       "ECS deployment circuit breaker: task failed to start.",
 	}
 )

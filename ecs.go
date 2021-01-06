@@ -94,3 +94,11 @@ type ECSResource struct {
 	IntegerSetValue []int    `json:"integerSetValue"`
 	StringSetValue  []string `json:"stringSetValue"`
 }
+
+type ECSDeploymentStateChangeEvent struct {
+	EventType    string    `json:"eventType"`
+	EventName    string    `json:"eventName"`
+	DeploymentID string    `json:"deploymentId"`
+	Reason       string    `json:"reason"`
+	UpdatedAt    time.Time `json:"updatedAt"`
+}
