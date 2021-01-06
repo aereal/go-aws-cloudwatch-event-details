@@ -48,7 +48,7 @@ type ECSTaskStateChangeEvent struct {
 	Group             string           `json:"group"`
 	LastStatus        string           `json:"lastStatus"`
 	Connectivity      string           `json:"connectivity"`
-	ConnectivityAt    time.Time        `json:"connectvityAt"`
+	ConnectivityAt    time.Time        `json:"connectivityAt"`
 	PullStartedAt     time.Time        `json:"pullStartedAt"`
 	StartedAt         time.Time        `json:"startedAt"`
 	PullStoppedAt     time.Time        `json:"pullStoppedAt"`
