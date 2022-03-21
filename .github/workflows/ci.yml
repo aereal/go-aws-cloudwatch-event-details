@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: lint
-        uses: reviewdog/action-golangci-lint@v1
+        uses: reviewdog/action-golangci-lint@v2
   test:
     name: Test Go=${{ matrix.go_version }} os=${{ matrix.os }}
     strategy:
