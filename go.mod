@@ -4,5 +4,5 @@ go 1.15
 
 require (
 	github.com/aws/aws-lambda-go v1.30.0
-	github.com/google/go-cmp v0.5.7
+	github.com/google/go-cmp v0.5.8
 )
