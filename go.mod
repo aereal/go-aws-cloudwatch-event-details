@@ -1,6 +1,6 @@
 module github.com/aereal/go-aws-cloudwatch-event-details
 
-go 1.15
+go 1.19
 
 require (
 	github.com/aws/aws-lambda-go v1.31.1
